@@ -48,7 +48,7 @@ class MarkovGenerator(object):
                     words += i + ' '
                 else:
                     words = words.strip() + i + ' '
-            #almost = words.strip() #TODO MAKE AN RE TO GET RID OF PUNC!!
+            #TODO make an re to fix end punct
             #re.sub("")
             return words.strip()
         start_tups = [k for k in self.markov_dict.keys() if k[0] == '.']
@@ -71,4 +71,12 @@ class MarkovGenerator(object):
                 continue
         words_tuples.append(('.',))
         self.generated_text = tup_to_words(words_tuples)
-        print self.generated_text
+        return self.generated_text
+
+def generate_tweet(from_text):
+    mc = MarkovGenerator(from_text, 90)
+    return mc.generate_words()
+
+if __name__ == '__main__':
+    with open(argv[1]) as f:
+        print generate_tweet(f.read())
