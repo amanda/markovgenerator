@@ -74,9 +74,13 @@ class MarkovGenerator(object):
         return self.generated_text
 
 def generate_tweet(from_text):
+    '''example: to generate a tweet from a text'''
     mc = MarkovGenerator(from_text, 90)
     return mc.generate_words()
 
 if __name__ == '__main__':
-    with open(argv[1]) as f:
-        print generate_tweet(f.read())
+    try:
+        with open(argv[1]) as f:
+            print generate_tweet(f.read())
+    except IndexError:
+        print 'usage: python markov.py [textfile]'
