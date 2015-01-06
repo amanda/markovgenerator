@@ -51,7 +51,7 @@ class MarkovGenerator(object):
             #TODO make an re to fix end punct
             #re.sub("")
             return words.strip()
-        start_tups = [k for k in self.markov_dict.keys() if k[0] == '.']
+        start_tups = [k for k in self.markov_dict.keys() if k[-1] == '.']
         start_tup = random.choice(start_tups) #let me tell you about my startup
         words_length = 0
         words_tuples = [start_tup] #list of tuples
@@ -72,15 +72,4 @@ class MarkovGenerator(object):
         words_tuples.append(('.',))
         self.generated_text = tup_to_words(words_tuples)
         return self.generated_text
-
-def generate_tweet(from_text):
-    '''example: to generate a tweet from a text'''
-    mc = MarkovGenerator(from_text, 90)
-    return mc.generate_words()
-
-if __name__ == '__main__':
-    try:
-        with open(argv[1]) as f:
-            print generate_tweet(f.read())
-    except IndexError:
-        print 'usage: python markov.py [textfile]'
+        
