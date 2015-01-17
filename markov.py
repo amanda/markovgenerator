@@ -1,11 +1,7 @@
 from nltk import word_tokenize
 from collections import defaultdict, Counter
 from sys import argv
-import random
-import operator
-import bisect
-import string
-import re
+import random, operator, bisect, string, re
 
 class MarkovGenerator(object):
     def __init__(self, text, length, ngram=2):
@@ -48,8 +44,6 @@ class MarkovGenerator(object):
                     words += i + ' '
                 else:
                     words = words.strip() + i + ' '
-            #TODO make an re to fix end punct
-            #re.sub("")
             return words.strip()
         start_tups = [k for k in self.markov_dict.keys() if k[-1] == '.']
         start_tup = random.choice(start_tups) #let me tell you about my startup
@@ -71,5 +65,7 @@ class MarkovGenerator(object):
                 continue
         words_tuples.append(('.',))
         self.generated_text = tup_to_words(words_tuples)
+        if self.generated_text[-2] in string.punctuation:
+            self.generated_text = self.generated_text[:-2] + '.' #get rid of ,. ?. etc.
         return self.generated_text
         
