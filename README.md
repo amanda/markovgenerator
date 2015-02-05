@@ -7,8 +7,15 @@ The MarkovGenerator class takes a input text to generate sentences from, the len
 
 Many thanks to @jamak for his help with this!
 
+installation
+-----------
+
+```
+python setup.py install
+```
+
 usage
-====
+----
 
 ```py
 import markov
@@ -19,9 +26,9 @@ print markov_gen.generate_words()
 ```
 
 TODO:
-====
+----
 - ~~fix ending punctuation, don't add a period if there's already something (maybe works now)~~
 - figure out what's going on with `` marks
-- make a setup.py file
+- ~~make a setup.py file~~
 - make pip installable
 - pickle input?
