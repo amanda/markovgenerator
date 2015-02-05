@@ -23,7 +23,6 @@ class MarkovGenerator(object):
         for t in zippy_words:
             a, b = t[:-1], t[-1]
             markov_dict[a][b] += 1
-        print markov_dict
         return markov_dict
 
     def choose_word(self, start_key):
@@ -39,7 +38,7 @@ class MarkovGenerator(object):
         choices, weights = zip(*self.markov_dict[start_key].iteritems())
         cumulative_distribution = list(accumulate(weights))
         rando = random.random() * cumulative_distribution[-1]
-        return choices[bisect.bisect(cumulative_distribution, rando)] # string
+        return choices[bisect.bisect(cumulative_distribution, rando)]
     
     def ngrams_to_words(tuple_list):
         '''(list of ngram tuples) -> str
