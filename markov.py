@@ -1,11 +1,18 @@
 from nltk import word_tokenize
 from collections import defaultdict, Counter
 from sys import argv
-import random, operator, bisect, string, re
+import random
+import operator
+import bisect
+import string
+import re
+
 
 class MarkovGenerator(object):
+
     '''class for making markov-generated text output of a 
     user-supplied length based on the supplied source text'''
+
     def __init__(self, text, length, ngram=2):
         self.text = text
         self.ngram = ngram
@@ -39,7 +46,7 @@ class MarkovGenerator(object):
         cumulative_distribution = list(accumulate(weights))
         rando = random.random() * cumulative_distribution[-1]
         return choices[bisect.bisect(cumulative_distribution, rando)]
-    
+
     def ngrams_to_words(tuple_list):
         '''(list of ngram tuples) -> str
         turns the tuples into a readable sentence'''
@@ -55,7 +62,8 @@ class MarkovGenerator(object):
     def generate_words(self):
         '''generates new text'''
         start_tups = [k for k in self.markov_dict.keys() if k[-1] == '.']
-        start_tup = random.choice(start_tups) # let me tell you about my startup
+        # let me tell you about my startup
+        start_tup = random.choice(start_tups)
         words_length = 0
         words_tuples = [start_tup]
         while words_length < self.length:
@@ -64,7 +72,7 @@ class MarkovGenerator(object):
             words_length += len(next_word) + 1
             words_tuples.append(next_tup)
         last_tup = words_tuples[-1]
-        for i in xrange(4): # try four times to get a good end of sentence
+        for i in xrange(4):  # try four times to get a good end of sentence
             if '.' in self.markov_dict[last_tup].values():
                 words_tuples.append(('.',))
                 self.generated_text = tup_to_words(words_tuples)
@@ -75,6 +83,5 @@ class MarkovGenerator(object):
         words_tuples.append(('.',))
         self.generated_text = ngrams_to_words(words_tuples)
         if self.generated_text[-2] in string.punctuation:
-            self.generated_text = self.generated_text[:-2] + '.' # get rid of ,. ?. etc.
+            self.generated_text = self.generated_text[:-2] + '.'
         return self.generated_text
-        
