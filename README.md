@@ -23,7 +23,7 @@ python setup.py install
 usage
 ----
 
-Example: Generate 200-character sentences from Mary Shelley's _Frankenstein_ based on an ngram length of 3:
+Example: Generate 200-character sentences from Mary Shelley's _Frankenstein_ based on an ngram length of 3
 
 ```py
 import markovgenerator
