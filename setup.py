@@ -1,13 +1,17 @@
 from setuptools import setup, find_packages
+from codecs import open 
+from os import path
+
+here = path.abspath(path.dirname(__file__))
 
 setup(
   name = 'markovgenerator',
-  version = '0.1',
+  version = '2015.02',
   description = 'Markov text generator',
   license = 'MIT',
   author = 'Amanda Pickering',
   author_email = 'pickering.amanda@gmail.com',
-  install_requires = ['nltk==3.0.1', 'wsgiref==0.1.2'],
+  install_requires = ['nltk', 'wsgiref'],
   url = 'https://github.com/amandapickering/markovgenerator',
   keywords = 'markov text generator natural language processing generative',
   packages = find_packages(),
