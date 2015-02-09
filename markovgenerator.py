@@ -61,7 +61,7 @@ class MarkovGenerator(object):
 
     def generate_words(self):
         '''generates new text'''
-        start_tups = [k for k in self.markov_dict.keys() if k[-1] == '.']
+        start_tups = [k for k in self.markov_dict.keys() if k[0] == '.']
         # let me tell you about my startup
         start_tup = random.choice(start_tups)
         words_length = 0
@@ -81,8 +81,8 @@ class MarkovGenerator(object):
                 last_tup = last_tup[1:] + (last_word,)
                 continue
         words_tuples.append(('.',))
-        print words_tuples
         generated_text = self.ngrams_to_words(words_tuples)
+        generated_text[0].upper()
         if generated_text[-2] in string.punctuation:
             generated_text = generated_text[:-2] + '.'
         return generated_text
