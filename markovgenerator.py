@@ -47,9 +47,9 @@ class MarkovGenerator(object):
         rando = random.random() * cumulative_distribution[-1]
         return choices[bisect.bisect(cumulative_distribution, rando)]
 
-    def ngrams_to_words(tuple_list):
-        '''(list of ngram tuples) -> str
-        turns the tuples into a readable sentence'''
+    def ngrams_to_words(self, tuple_list):
+        '''(list of ngram tuples) -> string
+        helper function for generate_words'''
         word_list = [x[0] for x in tuple_list[1:-1]] + list(tuple_list[-1])
         words = ''
         for i in word_list:
@@ -75,13 +75,14 @@ class MarkovGenerator(object):
         for i in xrange(4):  # try four times to get a good end of sentence
             if '.' in self.markov_dict[last_tup].values():
                 words_tuples.append(('.',))
-                self.generated_text = tup_to_words(words_tuples)
+                generated_text = self.ngrams_to_words(words_tuples)
             else:
                 last_word = self.choose_word(last_tup)
                 last_tup = last_tup[1:] + (last_word,)
                 continue
         words_tuples.append(('.',))
-        self.generated_text = ngrams_to_words(words_tuples)
-        if self.generated_text[-2] in string.punctuation:
-            self.generated_text = self.generated_text[:-2] + '.'
-        return self.generated_text
+        print words_tuples
+        generated_text = self.ngrams_to_words(words_tuples)
+        if generated_text[-2] in string.punctuation:
+            generated_text = generated_text[:-2] + '.'
+        return generated_text
