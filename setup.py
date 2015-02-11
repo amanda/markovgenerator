@@ -6,7 +6,7 @@ here = path.abspath(path.dirname(__file__))
 
 setup(
   name = 'markovgenerator',
-  version = '0.0.2',
+  version = '0.0.3',
   description = 'Markov text generator',
   license = 'MIT',
   author = 'Amanda Pickering',
