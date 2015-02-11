@@ -44,8 +44,8 @@ class MarkovGenerator(object):
                 yield total
         choices, weights = zip(*self.markov_dict[start_key].iteritems())
         cumulative_distribution = list(accumulate(weights))
-        rando = random.random() * cumulative_distribution[-1]
-        return choices[bisect.bisect(cumulative_distribution, rando)]
+        weighted_rando = random.random() * cumulative_distribution[-1]
+        return choices[bisect.bisect(cumulative_distribution, weighted_rando)]
 
     def ngrams_to_words(self, tuple_list):
         '''(list of ngram tuples) -> string
@@ -59,6 +59,11 @@ class MarkovGenerator(object):
                 words = words.strip() + i + ' '
         return words.strip()
 
+    def tickmark_cleanup(self, text):
+        no_ticks = re.sub(r"``|''", r"", text)
+        fixed = re.sub(r"(\s)\s", r"\1", no_ticks)
+        return fixed
+        
     def generate_words(self):
         '''generates new text'''
         start_tups = [k for k in self.markov_dict.keys() if k[0] == '.']
@@ -85,4 +90,4 @@ class MarkovGenerator(object):
         generated_text[0].upper()
         if generated_text[-2] in string.punctuation:
             generated_text = generated_text[:-2] + '.'
-        return generated_text
+        return self.tickmark_cleanup(generated_text)
