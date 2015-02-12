@@ -51,3 +51,4 @@ TODO:
 - ~~make a setup.py file~~
 - ~~make pip installable~~
 - pickle input?
+- write tests
