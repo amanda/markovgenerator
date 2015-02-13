@@ -1,12 +1,8 @@
 from setuptools import setup, find_packages
-from codecs import open 
-from os import path
-
-here = path.abspath(path.dirname(__file__))
 
 setup(
   name = 'markovgenerator',
-  version = '0.0.3',
+  version = '0.0.4',
   description = 'Markov text generator',
   license = 'MIT',
   author = 'Amanda Pickering',
