@@ -59,11 +59,25 @@ class MarkovGenerator(object):
                 words = words.strip() + i + ' '
         return words.strip()
 
+    # begin hacky text cleanup fuctions!
     def tickmark_cleanup(self, text):
         no_ticks = re.sub(r"``|''", r"", text)
         fixed = re.sub(r"(\s)\s", r"\1", no_ticks)
         return fixed
-        
+
+    def fix_apostrophes(self, text):
+        '''no space between end of word and apostrophe, 
+        friend 's becomes friend's', i 'm becomes i'm'''
+        return re.sub(r"(\w)\s'(\w)", r"\1'\2", text)
+
+    def fix_nt(self, text):
+        '''fixes issue with words ending in n't,
+        is n't becomes isn't, do n't becomes don't'''
+        return re.sub(r"(\w)\sn't", r"\1n't", text)
+
+    def final_cleanup(self, text):
+        return self.tickmark_cleanup(self.fix_apostrophes(self.fix_nt(text)))
+
     def generate_words(self):
         '''generates new text'''
         start_tups = [k for k in self.markov_dict.keys() if k[0] == '.']
@@ -90,4 +104,4 @@ class MarkovGenerator(object):
         generated_text[0].upper()
         if generated_text[-2] in string.punctuation:
             generated_text = generated_text[:-2] + '.'
-        return self.tickmark_cleanup(generated_text)
+        return self.final_cleanup(generated_text)
