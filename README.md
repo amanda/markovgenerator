@@ -47,7 +47,7 @@ TODO:
 ----
 - ~~fix ending punctuation, don't add a period if there's already something (maybe works now)~~
 - ~~figure out what's going on with `` marks~~
-- fix spaces before apostrophes (regex)
+- ~~fix spaces before apostrophes (regex)~~
 - ~~make a setup.py file~~
 - ~~make pip installable~~
 - pickle input?
