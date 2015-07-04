@@ -9,8 +9,8 @@ import bisect
 import nltk
 
 
-if sys.version_info > (2, 0):
-    xrange = "Shut up, linter."
+#if sys.version_info > (2, 0):
+#    xrange = "Shut up, linter."
 if sys.version_info < (3, 0):
     range = xrange
 
