@@ -25,7 +25,7 @@ class MarkovGenerator(object):
     arbitrary output. Output may be created with or without a seed.
     """
 
-    def __init__(self, text, length, ngram=2):
+    def __init__(self, text, length=200, ngram=2):
         """
         Create new instance of MarkovGenerator.
 
@@ -35,7 +35,7 @@ class MarkovGenerator(object):
         """
         self.text = text
         self.ngram = ngram
-        self.length = length
+        self.default_length = length
         self.markov_dict = self.make_markov_dict()
 
     def make_markov_dict(self):
@@ -105,14 +105,16 @@ class MarkovGenerator(object):
         """Fix apostrophes, "n't", and loose tickmarks."""
         return self.tickmark_cleanup(self.fix_apostrophes(self.fix_nt(text)))
 
-    def generate_words(self):
+    def generate_words(self, length=None):
         """Generate new text."""
+        if length is None:
+            length = self.default_length
         start_tups = [k for k in self.markov_dict.keys() if k[0] == '.']
         # let me tell you about my startup
         start_tup = random.choice(start_tups)
         words_length = 0
         words_tuples = [start_tup]
-        while words_length < self.length:
+        while words_length < length:
             next_word = self.choose_word(words_tuples[-1])
             next_tup = words_tuples[-1][1:] + (next_word,)
             words_length += len(next_word) + 1
